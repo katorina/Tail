@@ -1,3 +1,3 @@
 interface IWriter {
-    fun write (text: String)
+    fun write(text: String)
 }

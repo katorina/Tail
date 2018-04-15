@@ -1,9 +1,13 @@
-
 import java.util.*
 
-
-class ConsoleReaderByLine: IReader {
-    override fun read(filename: String?, count: Int): String {
+class ConsoleReaderByLine : IReader {
+    /**
+     * Reading data by console and returning last lines
+     * @param fileName is ignored
+     * @param count is a number for "n" flag
+     * @return last lines in console
+     */
+    override fun read(fileName: String?, count: Int): String {
         val input = Scanner(System.`in`)
         val lines = ArrayList<String>()
         var lineNew: String

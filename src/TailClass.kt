@@ -1,7 +1,13 @@
+/**
+ * Checking what flags do we have from an original string
+ * @param args are parts of an original string
+ *
+ * Then choosing what strategy do we need to takex
+ */
 fun main(args: Array<String>): Unit {
     val inputData = ArgsParser().parse(args)
 
-    val reader:IReader = when {
+    val reader: IReader = when {
         inputData.fileName == null && inputData.useLines -> ConsoleReaderByLine()
         inputData.fileName == null && !inputData.useLines -> ConsoleReaderBySymbol()
         inputData.fileName != null && inputData.useLines -> FileReaderByLine()
@@ -10,6 +16,6 @@ fun main(args: Array<String>): Unit {
     }
     val result = reader.read(inputData.fileName, inputData.count)
 
-    val writer:IWriter = if (inputData.outFileNames.isNotEmpty()) FileWriter(inputData.outFileNames) else ConsoleWriter()
+    val writer: IWriter = if (inputData.outFileNames.isNotEmpty()) FileWriter(inputData.outFileNames) else ConsoleWriter()
     writer.write(result)
 }

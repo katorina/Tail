@@ -1,4 +1,9 @@
 class ArgsParser {
+    /**
+     * Parsing and checking arguments
+     * @param args array of original arguments
+     * @return InputData with fileName, count for a flag, using or not lines and outFileNames parameters
+     */
     fun parse(args: Array<String>): InputData {
         var fileName: String? = null
         val outFileNames: MutableList<String> = ArrayList<String>()
@@ -8,17 +13,11 @@ class ArgsParser {
         var i = 0
         while (i < args.lastIndex) {
             when (args[i]) {
-                "fileN" -> {
-                    fileName = args[i + 1]
-                }
-                "c" -> {
-                    c = args[i + 1].toInt()
-                }
-                "n" -> {
-                    n = args[i + 1].toInt()
-                }
+                "fileN" -> fileName = args[i + 1]
+                "c" -> c = args[i + 1].toInt()
+                "n" -> n = args[i + 1].toInt()
                 "o" -> {
-                    for (k in i+1..args.lastIndex) {
+                    for (k in i + 1..args.lastIndex) {
                         outFileNames.add(args[k])
                     }
                 }
