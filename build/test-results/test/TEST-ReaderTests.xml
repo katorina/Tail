@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ReaderTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2018-04-23T21:18:39" hostname="DESKTOP-VJSMTNE" time="0.03">
+  <properties/>
+  <testcase name="checkConsoleReaderBySymbol" classname="ReaderTests" time="0.008"/>
+  <testcase name="checkFileReaderBySymbols" classname="ReaderTests" time="0.015"/>
+  <testcase name="checkConsoleReaderByLine" classname="ReaderTests" time="0.002"/>
+  <testcase name="checkFileReaderByLine" classname="ReaderTests" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
