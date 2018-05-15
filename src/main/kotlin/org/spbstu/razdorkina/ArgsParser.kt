@@ -1,45 +1,46 @@
 package org.spbstu.razdorkina
 
-import java.util.*
+import org.kohsuke.args4j.Argument
+import org.kohsuke.args4j.Option
+import org.kohsuke.args4j.CmdLineException
+import org.kohsuke.args4j.CmdLineParser
 
-class ArgsParser {
+
+class ArgsParser(args: List<String>) {
     /**
      * Parsing and checking arguments
      * @param args array of original arguments
      * @return InputData with fileName, count for a flag, using or not lines and outFileName parameters
      */
-    fun parse(args: Array<String>): InputData {
-        val fileNames: MutableList<String> = ArrayList<String>()
-        var outFileName: String? = null
+    @Option(name = "-c", usage = "Last lines number")
+    private var c = -1
 
-        var c = 0
-        var n = 0
+    @Option(name = "-n", usage = "Last symbols number")
+    private var n = -1
 
-        var i = 0
-        while (i < args.lastIndex) {
-            when (args[i]) {
-                "fileN" -> {
-                    for (k in i + 1..args.lastIndex) {
-                        if (args[k] == "n" || args[k] == "c" || args[k] == "o") break
-                        fileNames.add(args[k])
+    @Option(name = "-o", usage = "Output file name")
+    private var outFileName: String? = null
 
-                    }
-                }
-                "c" -> c = args[i + 1].toInt()
-                "n" -> n = args[i + 1].toInt()
-                "o" -> outFileName = args[i + 1]
-            }
-            i++
+    @Argument(usage = "Input files names")
+    private var fileNames: MutableList<String> = mutableListOf()
+
+    init {
+        val parser = CmdLineParser(this)
+        try {
+            parser.parseArgument(args)
+        } catch (e: CmdLineException) {
+            System.err.println(e.message)
+            parser.printUsage(System.err)
         }
-
-        if (c != 0 && n != 0) {
+        if (c != -1 && n != -1) {
             throw Exception("Wrong c, n arguments")
         }
-
-        if (c == 0 && n == 0) {
+        if (c == -1 && n == -1) {
             n = 10
         }
+    }
 
+    fun parse(): InputData {
         val count = if (n > 0) n else c
         val useLines = n > 0
 

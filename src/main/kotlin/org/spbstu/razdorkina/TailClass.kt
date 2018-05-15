@@ -6,7 +6,7 @@ package org.spbstu.razdorkina
  * Then choosing what strategy do we need to take
  */
 fun main(args: Array<String>): Unit {
-    val inputData = ArgsParser().parse(args)
+    val inputData = ArgsParser(args.toList()).parse()
 
     val reader: Reader = when {
         inputData.fileNames.isEmpty() && inputData.useLines -> ConsoleReaderByLine()

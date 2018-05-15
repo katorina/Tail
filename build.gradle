@@ -12,6 +12,8 @@ apply plugin: 'kotlin'
 apply plugin: 'application'
 apply plugin: 'idea'
 dependencies {
+    compile group: 'args4j', name: 'args4j', version: '2.33'
+    testCompile 'com.github.stefanbirkner:system-rules:1.17.2'
     testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect"

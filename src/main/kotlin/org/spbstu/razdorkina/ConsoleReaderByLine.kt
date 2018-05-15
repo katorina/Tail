@@ -10,7 +10,7 @@ class ConsoleReaderByLine : Reader {
      */
     override fun read(fileNames: List<String>, count: Int): String {
         val input = Scanner(System.`in`)
-        val lines = mutableListOf<String>()
+        val lines = ArrayDeque<String>()
         var lineNew: String
 
         while (input.hasNextLine()) {
@@ -19,16 +19,14 @@ class ConsoleReaderByLine : Reader {
                 break
             }
             if (lines.size == count)
-                lines.removeAt(0)
+                lines.removeFirst()
             lines.add(lineNew)
         }
-
         return getResult(lines, count)
     }
 
-    fun getResult(lines: List<String>, count: Int): String {
-        val text = lines.toTypedArray().joinToString("\n")
-        val firstIndex = lines.size - count
-        return lines.subList(firstIndex, lines.size).toTypedArray().joinToString("\n")
+    fun getResult (lines: ArrayDeque<String>, count: Int): String {
+        return lines.toTypedArray().joinToString(System.lineSeparator())
     }
+
 }

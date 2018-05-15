@@ -1,6 +1,13 @@
 package org.spbstu.razdorkina
+
 import java.io.File
+import java.io.FileInputStream
+import java.io.InputStream
 import java.util.*
+import com.sun.xml.internal.ws.streaming.XMLStreamReaderUtil.close
+import java.io.RandomAccessFile
+import java.io.IOException
+
 
 class FileReaderBySymbol : Reader {
     /**
@@ -10,18 +17,29 @@ class FileReaderBySymbol : Reader {
      * @return last "c" symbols
      */
     override fun read(fileNames: List<String>, count: Int): String {
-        val lines = ArrayList<String>()
-
+        val symbols = ArrayDeque<Char>()
+        val lines = ArrayDeque<String>()
+        val result = mutableListOf<String>()
         for (file in fileNames) {
-            for (line in File(file).readLines()) {
-                if (lines.toTypedArray().joinToString("").length >= count) lines.removeAt(0)
-                lines.add(line)
+            val reader = RandomAccessFile(file, "r")
+            val size = File(file).length()
+            var i = size - 1
+            while (i >= 0 && size - i <= count) {
+                reader.seek(i)
+                val c = reader.read()
+                if (c == -1) break
+                symbols.add(c.toChar())
+                i--
             }
+            lines.add(symbols.toTypedArray().joinToString(""))
+            symbols.clear()
+            if (fileNames.size > 1) lines.add("$file\n".reversed())
+            result.add(lines.toTypedArray().joinToString(""))
+            result += "\n"
+            lines.clear()
         }
+        result.removeAt(result.size - 1)
+        return result.toTypedArray().joinToString("").reversed()
 
-        val result = lines.toTypedArray().joinToString("\n")
-        val endIndex = result.lastIndex + 1
-        val startIndex = Math.max(endIndex - count, 0)
-        return result.substring(startIndex, endIndex)
     }
 }

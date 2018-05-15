@@ -1,5 +1,11 @@
 package org.spbstu.razdorkina
+
+import java.io.BufferedReader
 import java.util.*
+import java.util.ArrayList
+import java.util.ArrayDeque
+import java.util.Deque
+
 
 class ConsoleReaderBySymbol : Reader {
     /**
@@ -10,7 +16,7 @@ class ConsoleReaderBySymbol : Reader {
      */
     override fun read(fileNames: List<String>, count: Int): String {
         val input = Scanner(System.`in`)
-        val lines = ArrayList<String>()
+        val deque = ArrayDeque<Char>()
         var lineNew: String
 
         while (input.hasNextLine()) {
@@ -18,16 +24,13 @@ class ConsoleReaderBySymbol : Reader {
             if (lineNew.isEmpty()) {
                 break
             }
-            if (lines.toTypedArray().joinToString("").length >= count) lines.removeAt(0)
-            lines.add(lineNew)
+            for (char in lineNew) {
+                deque.add(char)
+                if (deque.size >= count) deque.removeFirst()
+            }
+            deque.addLast('\n')
         }
-
-        return getResult(lines, count)
+        return deque.toTypedArray().joinToString("")
     }
 
-    fun getResult(lines: List<String>, count: Int): String {
-        val text = lines.toTypedArray().joinToString("\n")
-        val firstIndex = text.length - count
-        return text.substring(firstIndex, text.length)
-    }
 }

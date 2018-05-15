@@ -1,4 +1,5 @@
 package org.spbstu.razdorkina
+
 import org.junit.*
 import org.junit.Assert.*
 import org.junit.Test
@@ -11,19 +12,17 @@ class Tests {
 
     @Test
     fun checkArgsParser() {
-        val parser = ArgsParser()
-
-        val data = parser.parse(arrayOf("fileN", "src/test/resources/input/source.txt", "c", "8"))
+        val parser = ArgsParser(listOf("-c", "5", "source.txt", "source2.txt"))
+        var data = parser.parse()
         assertFalse(data.useLines)
-        assertEquals(listOf("src/test/resources/input/source.txt"), data.fileNames)
-        assertTrue(data.count == 8)
-
-        val data2 = parser.parse(arrayOf())
-        assertTrue(data2.count == 10)
+        assertEquals(listOf("source.txt", "source2.txt"), data.fileNames)
+        assertTrue(data.count == 5)
+        val parser2 = ArgsParser(listOf("source.txt"))
+        data = parser2.parse()
+        assertTrue(data.count == 10)
 
         assertFails {
-            parser.parse(arrayOf("fileN", "input/source.txt", "c", "6", "n", "5"))
+            ArgsParser(listOf("input/source.txt", "-c", "6", "-n", "5")).parse()
         }
     }
-
 }

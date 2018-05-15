@@ -63,7 +63,7 @@ set CMD_LINE_ARGS=%*
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\Tail.jar;%APP_HOME%\lib\kotlin-stdlib-jdk8-1.2.40.jar;%APP_HOME%\lib\kotlin-reflect-1.2.40.jar;%APP_HOME%\lib\kotlin-stdlib-jdk7-1.2.40.jar;%APP_HOME%\lib\kotlin-stdlib-1.2.40.jar;%APP_HOME%\lib\annotations-13.0.jar
+set CLASSPATH=%APP_HOME%\lib\Tail.jar;%APP_HOME%\lib\args4j-2.33.jar;%APP_HOME%\lib\kotlin-stdlib-jdk8-1.2.40.jar;%APP_HOME%\lib\kotlin-reflect-1.2.40.jar;%APP_HOME%\lib\kotlin-stdlib-jdk7-1.2.40.jar;%APP_HOME%\lib\kotlin-stdlib-1.2.40.jar;%APP_HOME%\lib\annotations-13.0.jar
 
 @rem Execute Tail
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %TAIL_OPTS%  -classpath "%CLASSPATH%" org.spbstu.razdorkina.TailClassKt %CMD_LINE_ARGS%

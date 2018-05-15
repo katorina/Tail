@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="WriterTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-04-23T21:18:39" hostname="DESKTOP-VJSMTNE" time="0.01">
+<testsuite name="WriterTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-05-07T17:22:50" hostname="DESKTOP-VJSMTNE" time="0.036">
   <properties/>
-  <testcase name="checkFileWriter" classname="WriterTests" time="0.005"/>
-  <testcase name="checkConsoleWriter" classname="WriterTests" time="0.004"/>
+  <testcase name="checkFileWriter" classname="WriterTests" time="0.032"/>
+  <testcase name="checkConsoleWriter" classname="WriterTests" time="0.003"/>
   <system-out><![CDATA[9764316497
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
