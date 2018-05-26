@@ -2,7 +2,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.contrib.java.lang.system.SystemOutRule
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream
+import org.junit.rules.TemporaryFolder
 import org.spbstu.razdorkina.*
+import java.nio.file.Files
 import kotlin.test.assertEquals
 
 
@@ -48,5 +50,29 @@ class ReaderTests {
         systemIn.provideLines("1", "234", "5678")
         ConsoleWriter().write(reader.read(listOf(), 5))
         assertEquals("\n5678\n" + System.lineSeparator(), systemOut.log)
+    }
+
+    @Rule
+    @JvmField
+    val dir = TemporaryFolder()
+
+    @Test
+    fun checkWinFile() {
+        val fl = dir.newFile()
+        Files.write(fl.toPath(), "123\n\r456".toByteArray())
+        val reader = FileReaderBySymbol()
+        val res = "\n\r456"
+        val files = listOf(fl.absolutePath)
+        assertEquals(res, reader.read(files,5))
+    }
+
+    @Test
+    fun checkLinFile() {
+        val fl = dir.newFile()
+        Files.write(fl.toPath(), "123\n456".toByteArray())
+        val reader = FileReaderBySymbol()
+        val res = "3\n456"
+        val files = listOf(fl.absolutePath)
+        assertEquals(res, reader.read(files,5))
     }
 }
