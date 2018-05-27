@@ -19,6 +19,7 @@ class ConsoleReaderBySymbol : Reader {
         val deque = ArrayDeque<Char>()
         var lineNew: String
         var num = count
+        var win = false
 
         while (input.hasNextLine()) {
             lineNew = input.nextLine()
@@ -26,11 +27,15 @@ class ConsoleReaderBySymbol : Reader {
                 break
             }
             for (char in lineNew) {
+                if (char == '\r') win = true
                 deque.add(char)
                 if (deque.size >= num) deque.removeFirst()
             }
             deque.addLast('\n')
-            num++
+            if (win) {
+                num += 2
+                deque.addLast('\r')
+            } else num++
         }
         deque.removeLast()
         return deque.toTypedArray().joinToString("")
