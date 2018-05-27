@@ -49,7 +49,7 @@ class ReaderTests {
         val reader = ConsoleReaderBySymbol()
         systemIn.provideLines("1", "234", "5678")
         ConsoleWriter().write(reader.read(listOf(), 5))
-        assertEquals("\n5678\n" + System.lineSeparator(), systemOut.log)
+        assertEquals("4\n5678" + System.lineSeparator(), systemOut.log)
     }
 
     @Rule
@@ -61,7 +61,7 @@ class ReaderTests {
         val fl = dir.newFile()
         Files.write(fl.toPath(), "123\n\r456".toByteArray())
         val reader = FileReaderBySymbol()
-        val res = "\n\r456"
+        val res = "23\n\r456"
         val files = listOf(fl.absolutePath)
         assertEquals(res, reader.read(files,5))
     }
@@ -71,7 +71,7 @@ class ReaderTests {
         val fl = dir.newFile()
         Files.write(fl.toPath(), "123\n456".toByteArray())
         val reader = FileReaderBySymbol()
-        val res = "3\n456"
+        val res = "23\n456"
         val files = listOf(fl.absolutePath)
         assertEquals(res, reader.read(files,5))
     }

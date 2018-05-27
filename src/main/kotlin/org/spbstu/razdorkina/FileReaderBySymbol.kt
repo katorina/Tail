@@ -20,16 +20,18 @@ class FileReaderBySymbol : Reader {
         val symbols = ArrayDeque<Char>()
         val lines = ArrayDeque<String>()
         val result = mutableListOf<String>()
+        var num = count
         for (file in fileNames) {
             val reader = RandomAccessFile(file, "r")
             val size = File(file).length()
             var i = size - 1
-            while (i >= 0 && size - i <= count) {
+            while (i >= 0 && size - i <= num) {
                 reader.seek(i)
                 val c = reader.read()
                 if (c == -1) break
                 symbols.add(c.toChar())
                 i--
+                if (c.toChar() == '\n' || c.toChar() == '\r') num++
             }
             lines.add(symbols.toTypedArray().joinToString(""))
             symbols.clear()
